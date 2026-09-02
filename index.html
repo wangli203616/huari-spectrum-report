@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>电磁频谱感知监测赛道 · 产业深度研报（华日通讯）</title>
+<style>
+/* finesse · register=brand-document · A=cool-porcelain+spectrum-ink · B=serif-display/sans-body · C=wave-ruled-columns · D=css-reveal+progress · E=spectral-paper · SOUL=8 SPECTACLE=3 DENSITY=8 */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #EFF1F2;              /* 冷瓷灰纸面 */
+  --surface: #F8F9FA;
+  --ink: #17232B;             /* 深靛信号墨 */
+  --muted: #55636C;
+  --dim: #B4BEC4;
+  --accent: #0B5E77;          /* 电波青（主色） */
+  --accent-soft: rgba(11,94,119,.09);
+  --accent-ink: #EDF6F9;
+  --warn: #9A6432;            /* 赭石（风险/口径警示） */
+  --warn-soft: rgba(154,100,50,.10);
+  --border: rgba(23,41,51,.11);
+  --shadow: 0 18px 50px rgba(23,43,52,.10);
+  --font-display: "Songti SC","STSong","Noto Serif CJK SC","SimSun",serif;
+  --font-body: -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Segoe UI",sans-serif;
+  --font-mono: "JetBrains Mono","SF Mono",Consolas,"Roboto Mono",monospace;
+  --nav-h: 56px;
+  --z-nav: 300; --z-sticky: 200;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.72; -webkit-font-smoothing: antialiased; overflow-x: clip; min-height: 100dvh; }
+body::before { content:''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .03;
+  background-image: url("[image omitted]%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: fixed; top: 8px; left: 8px; z-index: 999; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; transform: translateY(-160%); transition: transform .25s var(--ease); }
+.skip:focus { transform: none; }
+
+/* ── 波形 motif（纯 CSS 细线） ── */
+.wave { position: relative; overflow: hidden; }
+.wave::after { content:''; position: absolute; inset: auto 0 0 0; height: 34px; opacity: .5; pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 8px, var(--accent) 8px 9px, transparent 9px 16px) repeat-x bottom/16px 100%,
+    radial-gradient(circle at 50% 50%, transparent 0 26px, rgba(11,94,119,.08) 26px 27px, transparent 27px 28px) 0 0/28px 34px,
+    radial-gradient(circle at 50% 50%, transparent 0 20px, rgba(11,94,119,.06) 20px 21px, transparent 21px 22px) 14px 0/28px 34px; }
+
+/* ── 导航 ── */
+.nav { position: sticky; top: 0; z-index: var(--z-nav); height: var(--nav-h); background: rgba(239,241,242,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-in { max-width: 1120px; margin: 0 auto; height: 100%; padding: 0 22px; display: flex; align-items: center; gap: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.mark { width: 32px; height: 32px; border-radius: 9px; background: var(--ink); color: var(--bg); font-family: var(--font-mono); font-size: 11px; font-weight: 600; display: grid; place-items: center; flex: none; letter-spacing: -.02em; border: 1px solid var(--accent); }
+.brand-t { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: .02em; white-space: nowrap; }
+.nav-more { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.doc-link { font-size: 12.5px; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 8px; padding: 7px 11px; white-space: nowrap; }
+.doc-link:hover { color: var(--accent); border-color: var(--accent); }
+.nav-toggle { appearance: none; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); font-size: 13px; padding: 8px 12px; cursor: pointer; min-height: 44px; font-family: var(--font-body); }
+.nav-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.progress { position: absolute; left: 0; bottom: -2px; height: 2px; width: 0; background: var(--accent); }
+
+/* ── 封面 ── */
+.cover { position: relative; max-width: 1120px; margin: 0 auto; padding: 76px 22px 46px; display: grid; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); gap: 46px; align-items: end; }
+.cover-main { min-width: 0; position: relative; }
+.cover-kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; }
+.cover h1 { font-family: var(--font-display); font-size: clamp(36px, 6.8vw, 72px); line-height: 1.05; letter-spacing: -.02em; font-weight: 900; overflow-wrap: anywhere; min-width: 0; }
+.cover h1 .al { color: var(--accent); }
+.cover-sub { margin-top: 14px; font-size: clamp(15px, 2.2vw, 19px); color: var(--muted); font-weight: 400; }
+.cover-abs { margin-top: 26px; max-width: 640px; font-size: 14.5px; color: var(--muted); }
+.cover-meta { margin-top: 32px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+.meta-cell { padding: 14px 16px 0 0; min-width: 0; }
+.meta-cell .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.meta-cell .v { margin-top: 5px; font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.cover-side { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); min-width: 0; }
+.side-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.side-row { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.side-row:last-of-type { border-bottom: 0; }
+.side-row .l { color: var(--muted); flex: none; }
+.side-row .r { text-align: right; font-weight: 600; overflow-wrap: anywhere; }
+.chip { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; vertical-align: 1px; }
+.chip.ok { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.chip.warn { border-style: dashed; color: var(--ink); }
+.chip.c { border-color: var(--accent); color: var(--accent); }
+.chip.hi { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip.seal { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); font-weight: 600; }
+
+/* ── 章节骨架 ── */
+main { position: relative; z-index: 5; }
+section { max-width: 1120px; margin: 0 auto; padding: 92px 22px; scroll-margin-top: calc(var(--nav-h) + 14px); }
+.sec-head { margin-bottom: 36px; }
+.sec-kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.sec-title { font-family: var(--font-display); font-size: clamp(25px, 4.2vw, 40px); font-weight: 800; letter-spacing: -.015em; line-height: 1.14; margin-top: 10px; overflow-wrap: anywhere; min-width: 0; }
+.sec-lead { margin-top: 14px; max-width: 820px; color: var(--muted); font-size: 14.5px; }
+.rule { border: 0; border-top: 1px solid var(--border); }
+.rule.strong { border-top: 2px solid var(--ink); }
+
+/* ── 陈述条 ── */
+.statement { padding: 42px 0; border-bottom: 1px solid var(--border); }
+.statement:first-of-type { border-top: 1px solid var(--border); }
+.statement .s-t { font-family: var(--font-display); font-size: clamp(18px, 2.8vw, 25px); font-weight: 700; line-height: 1.32; }
+.statement .s-b { margin-top: 12px; color: var(--muted); font-size: 14.5px; max-width: 900px; }
+.statement .s-meta { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* ── 统计带 ── */
+.stat-band { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.stat { background: var(--surface); padding: 22px 18px; min-width: 0; }
+.stat .n { font-family: var(--font-mono); font-size: clamp(19px, 2.6vw, 26px); font-weight: 700; letter-spacing: -.03em; color: var(--ink); overflow-wrap: anywhere; }
+.stat .n small { font-size: .52em; color: var(--muted); font-weight: 500; }
+.stat .k { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.stat .s { margin-top: 4px; font-size: 11px; color: var(--dim); }
+.stat.alert { background: var(--warn-soft); }
+.stat.alert .n { color: var(--warn); }
+
+/* ── 表格 ── */
+.tbl { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 660px; }
+th { background: var(--accent-soft); color: var(--ink); text-align: left; font-weight: 700; padding: 12px 14px; white-space: nowrap; font-size: 12px; letter-spacing: .02em; }
+td { padding: 11px 14px; border-top: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+td strong, td b { color: var(--ink); font-weight: 600; }
+td .num { font-family: var(--font-mono); color: var(--ink); white-space: nowrap; }
+tr:nth-child(even) td { background: rgba(255,255,255,.35); }
+.tbl-note { margin-top: 10px; font-size: 12px; color: var(--dim); }
+caption { text-align: left; padding: 12px 14px; font-weight: 600; color: var(--ink); font-size: 13px; border-bottom: 1px solid var(--border); background: var(--surface); }
+
+/* ── 分层堆叠（四层需求） ── */
+.ladder { border-top: 1px solid var(--border); }
+.ladder-row { display: grid; grid-template-columns: 170px minmax(0,1fr); gap: 22px; padding: 22px 0; border-bottom: 1px solid var(--border); align-items: start; }
+.ladder-row .lv { min-width: 0; }
+.ladder-row .lv .n { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: .08em; }
+.ladder-row .lv .t { font-family: var(--font-display); font-size: 17px; font-weight: 800; margin-top: 4px; }
+.ladder-row .lv .tagline { font-size: 11.5px; color: var(--dim); margin-top: 4px; }
+.ladder-row .d p { font-size: 13.5px; color: var(--muted); margin: 6px 0; }
+.ladder-row .d .dh { font-weight: 700; color: var(--ink); font-size: 13.5px; }
+
+/* ── 分栏 panel ── */
+.split { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 26px; align-items: start; }
+.split.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; min-width: 0; }
+.panel h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: baseline; gap: 8px; }
+.panel h4 .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.panel p, .panel li { font-size: 13.5px; color: var(--muted); }
+.panel ul { list-style: none; }
+.panel li { padding: 7px 0 7px 16px; position: relative; }
+.panel li::before { content: ''; position: absolute; left: 0; top: 15px; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); opacity: .75; }
+
+/* ── 看点台账（华日核心看点） ── */
+.ledger { border-top: 1px solid var(--border); }
+.ledger-row { display: grid; grid-template-columns: 210px minmax(0,1fr) 180px; gap: 22px; padding: 24px 0; border-bottom: 1px solid var(--border); align-items: start; }
+.ledger-row .who { min-width: 0; }
+.ledger-row .who .nm { font-family: var(--font-display); font-size: 17px; font-weight: 800; letter-spacing: .01em; }
+.ledger-row .who .role { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.55; }
+.ledger-row .who .chips { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.ledger-row .ev { min-width: 0; }
+.ev-row { padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--muted); }
+.ev-row:last-child { border-bottom: 0; }
+.ev-row .ev-t { color: var(--ink); font-weight: 600; }
+.ev-row .ev-s { margin-top: 2px; font-size: 12px; color: var(--dim); }
+.ledger-row .verdict { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; min-width: 0; }
+.ledger-row .verdict .v-k { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.ledger-row .verdict .v-t { margin-top: 6px; font-size: 13px; font-weight: 700; line-height: 1.5; }
+.ledger-row .verdict .v-t.flag { color: var(--warn); }
+.ledger-row .verdict .v-b { margin-top: 5px; font-size: 12px; color: var(--muted); }
+
+/* ── 风险清单 ── */
+.check { list-style: none; }
+.check li { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 12px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+.check li .d { min-width: 0; }
+.check li .t { font-weight: 600; color: var(--ink); }
+.check li .s { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.check li .sev { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; white-space: nowrap; }
+
+/* ── 手风琴 ── */
+details { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin-bottom: 12px; overflow: hidden; }
+details summary { list-style: none; cursor: pointer; padding: 17px 20px; font-weight: 700; font-size: 14.5px; display: flex; align-items: center; gap: 10px; min-height: 48px; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: '+'; margin-left: auto; font-family: var(--font-mono); color: var(--accent); font-size: 18px; transition: transform .25s var(--ease); flex: none; }
+details[open] summary::after { transform: rotate(45deg); }
+details .q-body { padding: 4px 20px 20px; }
+details ol { padding-left: 18px; }
+details ol li { font-size: 13.5px; color: var(--muted); margin: 9px 0; }
+.dd { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; color: var(--warn); text-transform: uppercase; flex: none; }
+
+/* ── 阶段标记 ── */
+.tag { display: inline-block; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .06em; padding: 2px 7px; border-radius: 5px; border: 1px solid var(--border); color: var(--muted); margin: 0 4px 4px 0; white-space: nowrap; }
+.tag.fact { border-color: var(--accent); color: var(--accent); }
+.tag.claim { border-style: dashed; color: var(--ink); }
+.tag.unv { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.tag.guess { color: var(--warn); border-color: var(--warn); border-style: dotted; }
+
+/* ── 引用块 ── */
+.pull { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 26px 20px 56px; margin: 24px 0; }
+.pull::before { content: '“'; position: absolute; left: 20px; top: 12px; font-family: var(--font-display); font-size: 44px; line-height: 1; color: var(--accent); }
+.pull p { font-family: var(--font-display); font-size: clamp(15.5px, 2.1vw, 18px); line-height: 1.52; font-weight: 600; }
+.pull cite { display: block; margin-top: 10px; font-size: 12px; color: var(--muted); font-style: normal; }
+
+/* ── 页脚 ── */
+footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; padding: 48px 22px 76px; position: relative; z-index: 5; }
+.foot-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 30px; }
+.foot-brand { font-family: var(--font-display); font-size: 20px; font-weight: 800; }
+.foot-note { margin-top: 12px; font-size: 12.5px; color: var(--muted); max-width: 600px; }
+.foot-links { font-size: 12.5px; color: var(--muted); }
+.foot-links a { display: inline-block; margin: 0 12px 8px 0; }
+.foot-bottom { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: 11.5px; color: var(--dim); }
+
+/* ── 目录抽屉 ── */
+.toc-drawer { display: none; }
+@media (max-width: 768px) {
+  .nav-in { padding: 0 14px; }
+  .brand-t { font-size: 13px; }
+  .doc-link { display: none; }
+  .toc-drawer { position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 299; background: var(--bg); border-bottom: 1px solid var(--border); box-shadow: 0 24px 40px rgba(23,43,52,.14); }
+  .toc-drawer.open { display: block; }
+  .toc-drawer a { display: block; padding: 12px 20px; font-size: 13.5px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--border); }
+  .toc-drawer a:first-child { border-top: 0; }
+  .cover { grid-template-columns: minmax(0,1fr); gap: 26px; padding-top: 48px; }
+  .cover-meta { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 18px; }
+  .cover h1 { font-size: clamp(31px, 8.8vw, 46px); line-height: 1.08; }
+  .stat-band { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .split, .split.three { grid-template-columns: minmax(0,1fr); }
+  .ladder-row { grid-template-columns: minmax(0,1fr); gap: 10px; }
+  .ledger-row { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .foot-grid { grid-template-columns: minmax(0,1fr); }
+  section { padding: 68px 18px; }
+  .check li { grid-template-columns: minmax(0,1fr) auto; }
+  .check li .d { grid-column: 1 / -1; grid-row: 1; }
+  .check li .sev { grid-column: 1 / -1; grid-row: 2; justify-self: start; }
+}
+
+/* ── 动效 ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ── 打印 ── */
+@page { size: A4; margin: 12mm 11mm 14mm; }
+@media print {
+  html, body { background: #FCFDFD !important; overflow: visible !important; }
+  body::before { display: none !important; }
+  .nav, .toc-drawer, .skip { display: none !important; }
+  section { padding: 9mm 0 7mm; max-width: none; }
+  .cover { padding: 3mm 0 5mm; grid-template-columns: minmax(0,1.45fr) minmax(0,1fr); gap: 10mm; }
+  .cover h1 { font-size: 27pt; line-height: 1.08; }
+  .cover-meta { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .stat-band { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .sec-title { font-size: 17pt; }
+  .sec-head, .sec-title { break-after: avoid; }
+  .statement, .panel, .tbl, .pull, .ledger-row, .stat-band, .split, .ladder-row, details { break-inside: avoid; }
+  .tbl { overflow: visible !important; border-radius: 6px; }
+  table { min-width: 0 !important; width: 100%; font-size: 8.3pt; }
+  th, td { padding: 5px 7px; }
+  details > .q-body { display: block !important; }
+  details summary::after { content: ''; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  a { color: inherit; text-decoration: none; }
+  footer { padding: 6mm 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<nav class="nav" aria-label="文档导航">
+  <div class="nav-in">
+    <div class="brand"><span class="mark">Hz</span><span class="brand-t">频谱研报 · 华日通讯</span></div>
+    <div class="nav-more">
+      <a class="doc-link" href="华日通讯-股东背景深度调研报告-20260902.md">股东背景报告 →</a>
+      <button class="nav-toggle" id="tocBtn" aria-expanded="false" aria-controls="tocDrawer">目录</button>
+    </div>
+    <div class="progress" id="progress" role="presentation"></div>
+  </div>
+</nav>
+<div class="toc-drawer" id="tocDrawer">
+  <a href="#s0">0 · 摘要与判断</a>
+  <a href="#s1">1 · 赛道景气度</a>
+  <a href="#s2">2 · 竞争格局</a>
+  <a href="#s3">3 · 华日通讯核心看点</a>
+  <a href="#s4">4 · 成长逻辑</a>
+  <a href="#s5">5 · 风险提示</a>
+  <a href="#s6">附录A · 尽调清单</a>
+  <a href="#s7">附录B · 来源</a>
+</div>
+
+<main id="main">
+<!-- COVER -->
+<header class="cover wave">
+  <div class="cover-main">
+    <div class="cover-kicker">产业深度研报 · 股权投资研究 · 内部资料</div>
+    <h1>电磁频谱感知监测<span class="al">赛道</span></h1>
+    <p class="cover-sub">以华日通讯为核心样本 · 四层需求 · 竞争格局 · 成长逻辑 · 风险提示</p>
+    <p class="cover-abs">频谱从"稀缺资源管理"升级为"国家安全基础设施"：低空安全、卫星频率秩序、电磁空间安全每一次提级，都要求更强的监测-定位-取证-决策能力。本研报基于公开信息拆解赛道景气度、竞争分层与标的看点，规模与份额类数字一律标注口径，不虚构财务数据。</p>
+    <div class="cover-meta">
+      <div class="meta-cell"><div class="k">Report No.</div><div class="v">HR-2026-0902-SPEC</div></div>
+      <div class="meta-cell"><div class="k">Date</div><div class="v">2026-09-02</div></div>
+      <div class="meta-cell"><div class="k">Version</div><div class="v">V1.0</div></div>
+      <div class="meta-cell"><div class="k">Class</div><div class="v"><span class="tag unv">内部资料</span></div></div>
+    </div>
+  </div>
+  <aside class="cover-side" aria-label="报告关键信息">
+    <div class="side-tag">Key Facts</div>
+    <div class="side-row"><span class="l">核心样本</span><span class="r">成都华日通讯技术股份有限公司<br/>拟科创板 · 辅导在途</span></div>
+    <div class="side-row"><span class="l">市场结构</span><span class="r">监管 / 军政 / 低空 / 卫星<br/>四层不可混算</span></div>
+    <div class="side-row"><span class="l">口径警示</span><span class="r"><span class="chip seal">模板研报不可引用</span><br/>市占率/订单均为企业口径</span></div>
+    <div class="side-row"><span class="l">股东信号</span><span class="r">股权结构调整在途<br/>九鼎系基金 23%</span></div>
+    <div class="side-row"><span class="l">一句话结论</span><span class="r"><span class="chip warn">赛道值得跟踪 · 公司值得尽调</span><br/>估值须以审计与台账为前提</span></div>
+  </aside>
+</header>
+
+<!-- S0 摘要 -->
+<section id="s0">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Executive Summary</div>
+    <h2 class="sec-title">0 · 摘要：真景气、四层分化、口径先行</h2>
+    <p class="sec-lead">本研报所有判断遵循同一纪律：区分【事实】【口径】【推算】；未上市标的不虚构财务；市场数字一律带来源与年份。</p>
+  </div>
+  <div class="stat-band reveal">
+    <div class="stat"><div class="n">4<small> 层</small></div><div class="k">可叠加的细分市场结构</div><div class="s">监管 / 军政 / 低空 / 卫星</div></div>
+    <div class="stat"><div class="n">28.56<small> 亿美元</small></div><div class="k">全球无线电监测设备（2024）</div><div class="s">QYResearch · CAGR 4.8%</div></div>
+    <div class="stat"><div class="n">≈24<small> 亿元</small></div><div class="k">反无政府招标市场（2024E）</div><div class="s">中航证券估算 · 口径混乱</div></div>
+    <div class="stat alert"><div class="n">238<small> 颗</small></div><div class="k">千帆星座在轨（2026-07）</div><div class="s">"建管并重"阶段已到</div></div>
+  </div>
+  <div class="statement reveal">
+    <p class="s-t">赛道判断：真景气、真壁垒，但市场盘子必须拆开看，低空与卫星的"万亿"不能直接折算成监测企业的收入。</p>
+    <p class="s-b">电磁频谱感知监测至少是四层生意：无线电监管（存量基本盘）、军政（不透明）、低空防御（弹性最大、竞争最乱）、卫星互联网监测（刚起步、订单模式最好）。政策端从"十四五"规划、771 号令到 2026 年五部门低空实施意见持续加码；全球设备大盘仅中个位数增长，弹性在中国政策性板块。</p>
+    <div class="s-meta"><span class="tag fact">事实</span><span class="tag">政策驱动</span></div>
+  </div>
+  <div class="statement reveal">
+    <p class="s-t">标的判断：30 年民营龙头，产品叙事有硬载体，市场地位口径需用招标台账实测。</p>
+    <p class="s-b">华日通讯的 α 在三点：监管监测基本盘的口碑与国产化整机能力（R81 全国产化接收机）；频谱能力平移低空防御与卫星监测（2026 年已有国家级首标与千万级生态合作）；平台与 AI 提高单客户价值。核心矛盾：新曲线当前多为"工程案例+自述口径"，缺可审计的收入拆分；叠加股权结构调整在途、九鼎系 PE 股东退市风险警示，上市退出时间表存在实质不确定性。</p>
+    <div class="s-meta"><span class="tag claim">企业口径待验证</span><span class="tag guess">推断</span></div>
+  </div>
+  <div class="statement reveal">
+    <p class="s-t">一句话结论：赛道值得跟踪、公司值得进场尽调，但估值与退出假设必须建立在"三年一期审计+产线收入拆分+份额实测"之后，不能建立在新闻口径之上。</p>
+    <div class="s-meta"><span class="tag">投资判断</span><span class="tag unv">需进场验证</span></div>
+  </div>
+</section>
+
+<!-- S1 赛道景气度 -->
+<section id="s1">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">1 · 赛道景气度：政策、需求与空间</h2>
+    <p class="sec-lead">频谱从"管频率"到"守电磁空间"，每一次提级都要求更强的监测-定位-取证能力；但预算主体是政府与行业主管单位，政策传导是脉冲式、项目制的。</p>
+  </div>
+  <div class="tbl reveal">
+    <table>
+      <caption>政策主线（2026-09 视角）</caption>
+      <thead><tr><th>时间</th><th>政策/事件</th><th>与频谱监测的关系</th></tr></thead>
+      <tbody>
+        <tr><td>2016 修订</td><td>《中华人民共和国无线电管理条例》</td><td>确立无线电监测与干扰查处法律地位</td></tr>
+        <tr><td>2021-11</td><td>《"十四五"国家无线电管理和发展规划》</td><td>明确监测网建设与智能化方向</td></tr>
+        <tr><td>2023-05</td><td>无人驾驶航空器飞行管理暂行条例（国令第 771 号）</td><td>重点区域管控与无人机管控需求法定化</td></tr>
+        <tr><td>2025-09</td><td>工信部《吴启晖：构建频谱安全体系 保障低空经济发展》</td><td>官方定调：低空电磁频谱安全是低空安全核心组成</td></tr>
+        <tr><td>2025 年版</td><td>十部门《低空经济标准体系建设指南（2025 年版）》</td><td>无线电管理列为安全监管独立章节（含电磁干扰与防御）</td></tr>
+        <tr><td>2026-02</td><td>五部门《低空基础设施实施意见》（工信厅联通信〔2026〕4 号）</td><td>低空频率供给 + 无线电监测、干扰查处 + 5G-A 通感探测</td></tr>
+        <tr><td>2026-05</td><td>华日中标国家级卫星互联网地面站频谱监测项目</td><td>"建管并重"后首个国家级监测项目落地</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ladder reveal" style="margin-top:30px">
+    <div class="ladder-row">
+      <div class="lv"><div class="n">01</div><div class="t">无线电监管</div><div class="tagline">存量基本盘</div></div>
+      <div class="d"><div class="dh">客户：国家/省/市无线电管理机构</div><p>合法合规监管、非法设台查处、电磁环境评估。全国 31 个省级机构+地市监测站构成基本盘，按《省级无线电监测设施建设规范和技术要求（试行）》采购。智能化改造（数据中台+AI 分析）是单客户价值量提升逻辑。</p></div>
+    </div>
+    <div class="ladder-row">
+      <div class="lv"><div class="n">02</div><div class="t">军政市场</div><div class="tagline">最深壁垒 · 最不透明</div></div>
+      <div class="d"><div class="dh">客户：军队频谱管理、电子对抗/技侦部门</div><p>资质（保密/承制/型号列装）决定参与者数量；"全国产化+自主知识产权"带来结构性机会，但列装周期长、信息黑箱，收入占比与可持续性无法公开验证。</p></div>
+    </div>
+    <div class="ladder-row">
+      <div class="lv"><div class="n">03</div><div class="t">低空防御</div><div class="tagline">弹性最大 · 竞争最乱</div></div>
+      <div class="d"><div class="dh">客户：机场、要地、大型活动、城市低空</div><p>"黑飞"监管需要被动无线电侦测（隐蔽、可定位飞手、TDOA 无源定位 10-50 米级），与雷达/光电互补。券商估算 2024 年政府反无招标约 24 亿元；竞争分散（约 10 央企+13 民企），低端同质化。</p></div>
+    </div>
+    <div class="ladder-row">
+      <div class="lv"><div class="n">04</div><div class="t">卫星监测</div><div class="tagline">刚起步 · 订单模式最好</div></div>
+      <div class="d"><div class="dh">客户：星座运营商、国家级地面站、发射场</div><p>站址电磁环境评估与保护、非法占用/干扰监测；<strong>干扰举证（定位+证据留存）是国际频率协调的硬需求</strong>。千帆 238 颗在轨、星网 GW 规划约 1.3 万颗，"建管并重"阶段已到。</p></div>
+    </div>
+  </div>
+
+  <div class="split reveal" style="margin-top:30px">
+    <div class="panel">
+      <h4><span class="tag">可信口径</span> 市场空间基准</h4>
+      <ul>
+        <li>全球无线电监测设备：2024 年约 28.56 亿美元，2031E 39.66 亿美元，CAGR 4.8%（QYResearch 2025-04）</li>
+        <li>国内反无人机政府招标：2024E 约 24.15 亿元；民用高价值安防理论容量约 110 亿元（中航证券 2024-10，估算）</li>
+        <li>全球 C-UAS 增速参考 CAGR 约 27.65%（Precedence 经券商转引）</li>
+        <li>智研咨询 2025 年反无口径仅 16-17 亿元——与券商数据冲突，统计不成熟</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4><span class="tag seal">口径排雷</span> 不可引用的数字</h4>
+      <ul>
+        <li>搜索可见"2026 年中国频谱监测系统 54.6 亿元""TOP3 占 54.1%"等，出自博研咨询等模板化内容工厂——同一模板还套出"频谱房""频谱能量屋"等无意义行业报告</li>
+        <li>国内监管监测细分市场规模建议自下而上用招标摸底，而不是引用研报数字</li>
+        <li>"低空万亿""卫星万亿"只能作为方向参考，不可折算为企业收入</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pull reveal">
+    <p>行业壁垒：资质（军工三证体系+股东适格性）、技术（宽带实时接收与高精度测向）、渠道（无委系统长期招投标信用与服务网络）、数据（30 年信号样本是 AI 识别的燃料）——四者叠加决定这是少数人的生意。</p>
+    <cite>壁垒小结</cite>
+  </div>
+</section>
+
+<!-- S2 竞争格局 -->
+<section id="s2">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">2 · 竞争格局：四张桌子，四个玩法</h2>
+    <p class="sec-lead">国际高端存量被 R&S 等占据；国内按桌子分层——监管监测高度集中、低空反无极度分散、卫星监测处于"首标定义规则"窗口。</p>
+  </div>
+  <div class="tbl reveal">
+    <table>
+      <caption>国内无线电监管监测主桌（华日所在）</caption>
+      <thead><tr><th>企业</th><th>背景</th><th>能力画像（公开口径）</th></tr></thead>
+      <tbody>
+        <tr><td><strong>成都华日通讯</strong></td><td>民企，1993 前身，专精特新</td><td>全体系监测测向+平台软件+AI；公司口径市占率逾四成；HRS71 接收机 20MHz-26.5GHz、80MHz 实时带宽（宣称超一类站指标）</td></tr>
+        <tr><td>中电科思仪科技</td><td>中国电科系</td><td>频谱仪/信号分析仪器谱系完整，监测接收机为延伸</td></tr>
+        <tr><td>创远信科</td><td>北交所上市</td><td>无线通信测试仪器，非政府监测网主业</td></tr>
+        <tr><td>坤恒顺维</td><td>科创板上市</td><td>无线信道仿真/测试，定位与监测网不同</td></tr>
+        <tr><td>成都中亚通茂</td><td>成都本地</td><td>监测/测向细分参与者，公开信息有限</td></tr>
+        <tr><td>电科系院所（54 所等）</td><td>军工院所</td><td>军政频谱管理与电子对抗强，民用监管参与度低</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="split reveal" style="margin-top:26px">
+    <div class="panel">
+      <h4><span class="tag">低空反无桌</span> 最乱的一张</h4>
+      <p>券商统计约 10 家央企 + 13 家民企有成熟产品：航天电子、莱斯信息、四川九洲、天和防务、星网宇达、国睿科技、四创电子（央企/上市系）；上海特金、理工全盛、历正科技、空御科技、华诺星空等（专业民企）。行业集中度低、民用低端同质化、买方市场。</p>
+      <p style="margin-top:8px"><strong>华日位置：频谱专家跨界</strong>——以"监测网+反制+平台"打包卖政务客户；但券商主流 C-UAS 名单未收录华日，声量需用中标数据补齐。</p>
+    </div>
+    <div class="panel">
+      <h4><span class="tag">卫星监测桌</span> 窗口期</h4>
+      <p>电科系院所、传统测控厂商、监测仪器厂商均有能力切入；公开可见的<strong>国家级地面站频谱监测标杆订单即华日（2026-05）</strong>。此桌订单大、客户集中，一旦形成"监测+举证+运维"标准则粘性强，但收入依赖少数项目、波动大。</p>
+      <p style="margin-top:8px"><strong>军政桌：</strong>电科系院所主导，民用厂商以设备供应商身份参与，黑箱属性最强。</p>
+    </div>
+  </div>
+</section>
+
+<!-- S3 华日核心看点 -->
+<section id="s3">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">3 · 华日通讯核心看点</h2>
+    <p class="sec-lead">每个看点同时给"产品证据"与"证据缺口"，防止叙事放大。</p>
+  </div>
+  <div class="tbl reveal">
+    <table>
+      <caption>主体档案（已证实 · 工商）</caption>
+      <tbody>
+        <tr><td><strong>全称</strong></td><td>成都华日通讯技术股份有限公司（前身 1993 年创办，2003-03 注册）</td></tr>
+        <tr><td><strong>资本</strong></td><td>注册资本 5,100 万元，已全部实缴；注册地成都武侯区</td></tr>
+        <tr><td><strong>治理</strong></td><td>法代/董事长/总经理：莫舸舸；员工约 487+32 人（参保口径）</td></tr>
+        <tr><td><strong>资质</strong></td><td>高新技术企业、四川省专精特新、GJB9001C 军标质量体系</td></tr>
+        <tr><td><strong>知识产权</strong></td><td>专利 241+软著 80+（百科 2026 初口径）；媒体口径"近 308 项"</td></tr>
+        <tr><td><strong>上市进程</strong></td><td>2020-12 中信建投辅导备案（科创板），2026-07 第 21 期仍为"辅导备案"，未申报</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ledger reveal" style="margin-top:30px">
+    <div class="ledger-row">
+      <div class="who"><div class="nm">全国产化接收机</div><div class="role">R81 / HRS71 系列</div><div class="chips"><span class="chip ok">参数已证实</span><span class="chip warn">国产化待核</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">R81 旗舰（2023-01 发布）：20MHz-8GHz、可扩展 40GHz；实时带宽 80/160/320MHz；扫描 1000GHz/s；灵敏度 ≤-120dBm；2TB I/Q 流盘</div><div class="ev-s">官网参数 · 事实</div></div>
+        <div class="ev-row"><div class="ev-t">HRS71：20MHz-26.5GHz、80MHz 实时带宽，公司称性能超一类监测站技术要求</div><div class="ev-s">官网参数 · 事实</div></div>
+        <div class="ev-row"><div class="ev-t">"国内首家实现接收设备全国产化并拥有全部自主知识产权"</div><div class="ev-s">封面新闻转述企业口径 · 无第三方检测/认定公开文件</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t">硬件载体真实，成色待验证</div><div class="v-b">尽调索要器件级 BOM（射频/ADC/FPGA/CPU）与第三方检测报告。</div></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="who"><div class="nm">AI 频谱"大模型"</div><div class="role">智谱全域 / 智感慧算</div><div class="chips"><span class="chip c">真实形态=应用助手</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">三层 AI 体系（设备/系统/平台）+ "雁门/昆仑/观穹"平台群（2025 发布会）</div><div class="ev-s">公司口径 · 事实（发布）</div></div>
+        <div class="ev-row"><div class="ev-t">AI 应用=结合 DeepSeek 等通用大模型构建无线电知识库与"无线电智慧监测助手"（知识问答、自动报告）</div><div class="ev-s">公司官方账号一手 · 事实</div></div>
+        <div class="ev-row"><div class="ev-t">注意：工信部宣传的"亿级参数电磁频谱大模型"来自南航，与华日无关</div><div class="ev-s">工信部官网 · 事实</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t flag">是行业应用，不是自研底座</div><div class="v-b">叙事必须严格区分，防止概念放大。</div></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="who"><div class="nm">空地一体监测</div><div class="role">2025-09 发布</div><div class="chips"><span class="chip c">方向卡位</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">"电磁频谱安全——空地一体频谱监测预警系统"：频谱监测+通信信号侦察+电子对抗，组合车载/机载/无人机/地面站</div><div class="ev-s">2025-09-26 发布会 · 新华网等转述</div></div>
+        <div class="ev-row"><div class="ev-t">落地项目未公开</div><div class="ev-s">待核实</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t">发布真实，案例空白</div><div class="v-b">属于"方向卡位"型发布，需跟进落地订单。</div></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="who"><div class="nm">无人机管控</div><div class="role">ZK402 猎鹰 / 灵眸</div><div class="chips"><span class="chip ok">参数第一梯队</span><span class="chip warn">订单刚起步</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">ZK402：20MHz-8GHz、探测 ≥10km、测向 ≤2-4° RMS、并发 ≥30 架、AOA+TDOA、Ocusync/MavLink 协议解析</div><div class="ev-s">官网参数 · 国内第一梯队水平</div></div>
+        <div class="ev-row"><div class="ev-t">2026-07 与中科星图低空生态签约：配套近百套设备、合同超千万元</div><div class="ev-s">公司官网口径 · 可与中科星图披露交叉验证</div></div>
+        <div class="ev-row"><div class="ev-t">首都机场无人机综合管控（官网案例）</div><div class="ev-s">未见机场方/民航局公开文件</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t">从发布走到首单，体量仍小</div><div class="v-b">依赖中科星图等生态伙伴，价格战与回款待验证。</div></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="who"><div class="nm">卫星监测业务</div><div class="role">国家级首标 / SMS100</div><div class="chips"><span class="chip ok">首标事实</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">2026-05 中标国家级卫星互联网监测系统项目：四大地面站电磁环境监测、空间频谱监测与干扰举证</div><div class="ev-s">公司官网+多家媒体转载 · 当前公开可见的首个国家级标杆</div></div>
+        <div class="ev-row"><div class="ev-t">SMS100 卫星互联网用户终端监测系统（2026-08 首次公开）</div><div class="ev-s">公司口径</div></div>
+        <div class="ev-row"><div class="ev-t">GN500/GN560 干扰监测测向：欺骗监测灵敏度 ≤-130dBm；参与泉州 GPS 干扰排查</div><div class="ev-s">官网参数+公司口径</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t">资产型订单，标杆价值大于收入价值</div><div class="v-b">单个国家级项目不等于可持续曲线，跟踪后续地面站批量节奏。</div></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="who"><div class="nm">市场地位</div><div class="role">口径 vs 证据</div><div class="chips"><span class="chip seal">企业口径</span></div></div>
+      <div class="ev">
+        <div class="ev-row"><div class="ev-t">"国内无线电监测行业龙头、民用军用双高份额"（九鼎 2013 注资新闻、封面新闻等）</div><div class="ev-s">第三方转述企业口径</div></div>
+        <div class="ev-row"><div class="ev-t">"逾四成市场占有率"（封面新闻 2026-06）</div><div class="ev-s">企业口径 · 无独立审计，需招标台账实测</div></div>
+        <div class="ev-row"><div class="ev-t">"三九通道空间谱测向系统累计超 10 亿元订单"（红星新闻 2024-11 现场报道）</div><div class="ev-s">企业介绍口径 · 非财务披露</div></div>
+        <div class="ev-row"><div class="ev-t">标杆：国家中心一体化平台互联互通、环京护城河、边境监测网、环青赛实战保障</div><div class="ev-s">官网案例 · 部分有场景背书</div></div>
+      </div>
+      <div class="verdict"><div class="v-k">Verdict</div><div class="v-t flag">地位可信，数字待证</div><div class="v-b">进场尽调第一件事：近三年各省中标台账份额实测。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 成长逻辑 -->
+<section id="s4">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">4 · 成长逻辑：压舱石、弹性与资产型订单</h2>
+    <p class="sec-lead">三条曲线收入拆分均未披露——这是估值分歧的全部来源，也是进场尽调的第一件事。</p>
+  </div>
+  <div class="split three reveal">
+    <div class="panel">
+      <h4><span class="tag">基本盘</span> 监管监测 · 利润压舱石</h4>
+      <p>国家/省市监测网建设、补盲升级与重大活动保障，本质是政府采购与财政预算驱动；"十五五"（2026-2030）是新一轮智能化升级窗口。</p>
+      <p><strong>特征：</strong>项目制、验收制、回款周期长、大客户集中。智能化改造预算与运维服务化程度决定基本盘增速。</p>
+    </div>
+    <div class="panel">
+      <h4><span class="tag">曲线 A</span> 低空防御 · 收入弹性</h4>
+      <p>政策已把低空频谱安全写入监管职责；券商估算政府反无招标 2024 年约 24 亿元、高价值区域理论容量约 110 亿元。</p>
+      <p><strong>证据：</strong>ZK402 发布（2025-09）→ 中科星图千万级配套（2026-07），约一年走完"发布到首单"。<strong>不确定性：</strong>总量、毛利、回款与价格战均未验证；对生态伙伴依赖高。</p>
+    </div>
+    <div class="panel">
+      <h4><span class="tag">曲线 B</span> 卫星监测 · 资产型订单</h4>
+      <p>"建管并重"后，地面站电磁环境保护、干扰监测与举证成为刚需；国家级地面站项目开始批量招标。</p>
+      <p><strong>证据：</strong>2026-05 国家级首标（四大地面站）→ 2026-08 SMS100 发布。<strong>不确定性：</strong>后续建设节奏、电科系下场抢单、监管预算与商业模式（建设 vs 运维）均未定型。</p>
+    </div>
+  </div>
+  <div class="pull reveal">
+    <p>证伪条件：省级"十四五"建设高峰过后采购失速；低空项目制回款差、被雷达系/安防巨头价格战压制；卫星国家级项目成为一次性工程；"四成市占率""多个首家"无法用中标数据支撑。</p>
+    <cite>成长逻辑的减速/证伪信号</cite>
+  </div>
+</section>
+
+<!-- S5 风险提示 -->
+<section id="s5">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Risk</div>
+    <h2 class="sec-title">5 · 主要风险提示</h2>
+    <p class="sec-lead">八项风险按对投资判断的影响排序；股东/治理维度的完整清单见配套股东背景报告。</p>
+  </div>
+  <ul class="check reveal">
+    <li><span class="num">1</span><div class="d"><div class="t">数据与口径风险</div><div class="s">市占率、订单、行业排名均缺权威统计；模板研报污染严重——基于这些数字的估值不可靠。</div></div><span class="sev chip seal">高</span></li>
+    <li><span class="num">2</span><div class="d"><div class="t">政府预算与采购节奏</div><div class="s">收入脉冲式，受财政、换届、规划周期影响；智能化窗口若预算不足，基本盘失速。</div></div><span class="sev chip seal">高</span></li>
+    <li><span class="num">3</span><div class="d"><div class="t">低空竞争恶化与技术路线</div><div class="s">10+央企、13+民企同台，低端同质化；5G-A"通感一体"可能改变反无技术路线。</div></div><span class="sev chip warn">中高</span></li>
+    <li><span class="num">4</span><div class="d"><div class="t">AI/国产化叙事落差</div><div class="s">AI 是通用大模型+行业知识库应用而非自研底座；"全国产化"需器件级清单与第三方检测。</div></div><span class="sev chip warn">中高</span></li>
+    <li><span class="num">5</span><div class="d"><div class="t">军政/涉密信息黑箱</div><div class="s">技侦电子对抗线不公开；投资结构存在股东适格性审查（PE/外资 LP 需穿透）。</div></div><span class="sev chip warn">中</span></li>
+    <li><span class="num">6</span><div class="d"><div class="t">上市与股东退出</div><div class="s">IPO 辅导 5 年 8 个月未申报；第 21 期辅导报告披露"拟对股权结构进行部分调整"；九鼎系 *ST九鼎退市风险警示、4 基金合计 23% 持有 13 年。</div></div><span class="sev chip seal">高</span></li>
+    <li><span class="num">7</span><div class="d"><div class="t">卫星业务集中度</div><div class="s">国家级项目单一、客户少，收入确认与回款周期长；"监测+举证"商业模式尚未稳定。</div></div><span class="sev chip warn">中</span></li>
+    <li><span class="num">8</span><div class="d"><div class="t">治理集中</div><div class="s">实控人莫舸舸身兼董事长/总经理/法代/员工平台 GP，家族可支配表决权约 68%；监事会与激励对象重叠；外部董事背景近乎空白。</div></div><span class="sev chip warn">中</span></li>
+  </ul>
+</section>
+
+<!-- S6 尽调清单 -->
+<section id="s6">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">附录 A · 进场尽调验证清单</h2>
+    <p class="sec-lead">精选八组；股东侧完整 P0-P2 动作见配套股东背景报告。</p>
+  </div>
+  <div class="reveal">
+    <details open>
+      <summary><span class="dd">01</span> 财务与收入拆分</summary>
+      <div class="q-body"><ol>
+        <li>三年一期审计报告；收入按产线拆分（监管/军政/低空/卫星/运维）；</li>
+        <li>前五大客户与应收账款账龄、招投标收入确认规则。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">02</span> 份额实测</summary>
+      <div class="q-body"><ol>
+        <li>近三年各省无线电监测设施与信息化建设中标台账（公司自测+公开公告交叉），验证"逾四成"口径。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">03</span> 国产化证据</summary>
+      <div class="q-body"><ol>
+        <li>R81/HRS71 器件级 BOM（射频/ADC/DAC/FPGA/CPU）、第三方检测报告与国产化率认定文件。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">04</span> 订单台账</summary>
+      <div class="q-body"><ol>
+        <li>"累计超 10 亿元订单"的合同清单+验收+回款；</li>
+        <li>中科星图合作合同（主体/金额/设备型号）与上市公司公开披露交叉验证。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">05</span> AI 边界</summary>
+      <div class="q-body"><ol>
+        <li>自研算法/模型与调用 DeepSeek 等通用模型的构成比例；</li>
+        <li>"智谱全域/智感慧算"实际部署站点数与客户数、可量化指标（漏报率/识别准确率）。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">06</span> 卫星项目</summary>
+      <div class="q-body"><ol>
+        <li>国家级项目合同模式（一次性建设 vs 建设+运维）、回款节奏、后续地面站订单在谈情况。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">07</span> 股权与基金</summary>
+      <div class="q-body"><ol>
+        <li>股权结构调整方案（方向/比例/定价/对象）、四只九鼎基金合同与展期决议、LP 名册与适格性；</li>
+        <li>2013 年以来历次转让定价与纳税凭证；员工平台 42 人名单与股份支付审计。</li>
+      </ol></div>
+    </details>
+    <details>
+      <summary><span class="dd">08</span> 治理与关联交易</summary>
+      <div class="q-body"><ol>
+        <li>董事会/监事会独立性整改计划、实控人权力制衡安排；</li>
+        <li>华日新达等关联方物业租赁与园区运营专项审计、全部司法案件清单。</li>
+      </ol></div>
+    </details>
+  </div>
+</section>
+
+<!-- S7 来源 -->
+<section id="s7">
+  <div class="sec-head reveal">
+
+    <h2 class="sec-title">附录 B · 主要来源与口径</h2>
+    <p class="sec-lead">一手优先；企业口径与媒体转述一律标注；模板研报不采用。</p>
+  </div>
+  <div class="tbl reveal">
+    <table>
+      <caption>来源分层</caption>
+      <thead><tr><th>层级</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag fact">官方一手</span></td><td>工信厅联通信〔2026〕4号；工信部《吴启晖：构建频谱安全体系 保障低空经济发展》；千帆组网新闻（2026-07）；证监会 eid 辅导公示与第 21 期辅导报告</td></tr>
+        <tr><td><span class="tag">券商/第三方</span></td><td>中航证券《反无人机系统》（2024-10）；QYResearch 无线电监测设备市场（2025-04）；智研咨询（2026-05，与券商冲突，谨慎）</td></tr>
+        <tr><td><span class="tag">公司一手</span></td><td>华日官网 cdhuari.com（产品参数/案例/新闻）；新华网四川（2025-09 发布会）；公司官方知乎号（AI 应用形态）</td></tr>
+        <tr><td><span class="tag claim">媒体转述口径</span></td><td>封面新闻（市占率/领军企业）；红星新闻（超 10 亿订单）；九鼎投资官网 2013 注资新闻；百度百科词条</td></tr>
+        <tr><td><span class="tag unv">不采用</span></td><td>博研咨询等模板化内容工厂的"频谱 XX 市场报告"（同一模板套用无意义词条）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">频谱研报 · 华日通讯</div>
+      <p class="foot-note">本研报基于 2026-09-02 前可获取的公开信息编制，不构成投资建议。所有"企业口径"数据须以尽调底稿（审计报告、中标台账、第三方检测、基金合同）替代后方可用于估值。规模与份额数字已标注来源与年份，未虚构任何财务数据。</p>
+    </div>
+    <div class="foot-links">
+      <a href="华日通讯-股东背景深度调研报告-20260902.md">股东背景专项报告</a><br/>
+      <span style="color:var(--dim);font-size:12px">配套：电磁频谱感知监测赛道-行业研究报告 / 公司深度调研简报（本地工作区）</span>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>deep-research · 行业/公司/股东三线并行 · 2026-09-02</span>
+    <span>事实 / 口径 / 推算 逐条标注 · 口径先于结论</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var progress = document.getElementById('progress');
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+  }
+  function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(paint); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  paint();
+
+  var tocBtn = document.getElementById('tocBtn');
+  var toc = document.getElementById('tocDrawer');
+  tocBtn.addEventListener('click', function () {
+    var open = toc.classList.toggle('open');
+    tocBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  toc.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      toc.classList.remove('open');
+      tocBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  if (RM) return;
+  var reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('in');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('in');
+        io.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+  for (var j = 0; j < reveals.length; j++) io.observe(reveals[j]);
+})();
+</script>
+</body>
+</html>
