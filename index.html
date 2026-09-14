@@ -259,6 +259,23 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
+<style>
+/* ===== 手机端表格适配（2026-09-14） ===== */
+html{overflow-x:hidden}
+body{overflow-x:hidden;max-width:100%}
+.tbl{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:auto}
+@media (max-width:760px){
+  .tbl{overflow:visible;border:none;border-radius:0;background:transparent}
+  .tbl table{min-width:0!important;width:100%!important;font-size:13px;border-collapse:separate;border-spacing:0}
+  .tbl thead{display:none}
+  .tbl tbody tr{display:block;background:var(--surface,#fff);border:1px solid var(--border,#e5e0d6);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+  .tbl tbody tr:nth-child(even) td{background:transparent}
+  .tbl tbody td{display:block;width:auto!important;border:none!important;padding:5px 0;background:transparent!important;font-size:13px;line-height:1.66;white-space:normal!important;word-break:break-word;overflow-wrap:anywhere}
+  .tbl tbody td+td{border-top:1px dashed rgba(0,0,0,.07)!important;padding-top:7px;margin-top:2px}
+  .tbl tbody td::before{content:attr(data-label);display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--dim,#85919b);margin-bottom:2px}
+  .tbl tbody td[data-label=""]::before,.tbl tbody td:not([data-label])::before{display:none}
+}
+</style>
 </head>
 <body><style>.hrtabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#102a43;border-radius:14px;padding:8px;margin:10px 0 14px;scrollbar-width:none}.hrtabs::-webkit-scrollbar{display:none}.hrtabs a{flex:none;font-size:12.5px;color:#cfe0ee;text-decoration:none;padding:7px 12px;border-radius:9px;white-space:nowrap;line-height:1.4}.hrtabs a.active{background:#e8c98b;color:#3d2e0a;font-weight:700}.hrtabs a:hover{background:rgba(255,255,255,.12)}</style><nav class="hrtabs"><a href="https://wangli203616.github.io/huari-nuclear-report/">中核核工业研报</a><a href="https://wangli203616.github.io/huari-spectrum-report/shareholder.html">股东背景可视化</a><a href="https://wangli203616.github.io/huari-spectrum-report/" class="active">电磁频谱产业研报</a><a href="https://wangli203616.github.io/huari-nuclear-report/pengzhou-renshou.html">彭州仁寿基地核查</a><a href="https://wangli203616.github.io/huari-nuclear-report/procurement.html">采购中标明细</a><a href="https://wangli203616.github.io/huari-nuclear-report/solution.html">整体解决方案</a></nav>
 <a class="skip" href="#main">跳到正文</a>
@@ -350,13 +367,13 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>政策主线（2026-09 视角）</caption>
       <thead><tr><th>时间</th><th>政策/事件</th><th>与频谱监测的关系</th></tr></thead>
       <tbody>
-        <tr><td>2016 修订</td><td>《中华人民共和国无线电管理条例》</td><td>确立无线电监测与干扰查处法律地位</td></tr>
-        <tr><td>2021-11</td><td>《"十四五"国家无线电管理和发展规划》</td><td>明确监测网建设与智能化方向</td></tr>
-        <tr><td>2023-05</td><td>无人驾驶航空器飞行管理暂行条例（国令第 771 号）</td><td>重点区域管控与无人机管控需求法定化</td></tr>
-        <tr><td>2025-09</td><td>工信部《吴启晖：构建频谱安全体系 保障低空经济发展》</td><td>官方定调：低空电磁频谱安全是低空安全核心组成</td></tr>
-        <tr><td>2025 年版</td><td>十部门《低空经济标准体系建设指南（2025 年版）》</td><td>无线电管理列为安全监管独立章节（含电磁干扰与防御）</td></tr>
-        <tr><td>2026-02</td><td>五部门《低空基础设施实施意见》（工信厅联通信〔2026〕4 号）</td><td>低空频率供给 + 无线电监测、干扰查处 + 5G-A 通感探测</td></tr>
-        <tr><td>2026-05</td><td>华日中标国家级卫星互联网地面站频谱监测项目</td><td>"建管并重"后首个国家级监测项目落地</td></tr>
+        <tr><td data-label="时间">2016 修订</td><td data-label="政策/事件">《中华人民共和国无线电管理条例》</td><td data-label="与频谱监测的关系">确立无线电监测与干扰查处法律地位</td></tr>
+        <tr><td data-label="时间">2021-11</td><td data-label="政策/事件">《"十四五"国家无线电管理和发展规划》</td><td data-label="与频谱监测的关系">明确监测网建设与智能化方向</td></tr>
+        <tr><td data-label="时间">2023-05</td><td data-label="政策/事件">无人驾驶航空器飞行管理暂行条例（国令第 771 号）</td><td data-label="与频谱监测的关系">重点区域管控与无人机管控需求法定化</td></tr>
+        <tr><td data-label="时间">2025-09</td><td data-label="政策/事件">工信部《吴启晖：构建频谱安全体系 保障低空经济发展》</td><td data-label="与频谱监测的关系">官方定调：低空电磁频谱安全是低空安全核心组成</td></tr>
+        <tr><td data-label="时间">2025 年版</td><td data-label="政策/事件">十部门《低空经济标准体系建设指南（2025 年版）》</td><td data-label="与频谱监测的关系">无线电管理列为安全监管独立章节（含电磁干扰与防御）</td></tr>
+        <tr><td data-label="时间">2026-02</td><td data-label="政策/事件">五部门《低空基础设施实施意见》（工信厅联通信〔2026〕4 号）</td><td data-label="与频谱监测的关系">低空频率供给 + 无线电监测、干扰查处 + 5G-A 通感探测</td></tr>
+        <tr><td data-label="时间">2026-05</td><td data-label="政策/事件">华日中标国家级卫星互联网地面站频谱监测项目</td><td data-label="与频谱监测的关系">"建管并重"后首个国家级监测项目落地</td></tr>
       </tbody>
     </table>
   </div>
@@ -418,12 +435,12 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>国内无线电监管监测主桌（华日所在）</caption>
       <thead><tr><th>企业</th><th>背景</th><th>能力画像（公开口径）</th></tr></thead>
       <tbody>
-        <tr><td><strong>成都华日通讯</strong></td><td>民企，1993 前身，专精特新</td><td>全体系监测测向+平台软件+AI；公司口径市占率逾四成；HRS71 接收机 20MHz-26.5GHz、80MHz 实时带宽（宣称超一类站指标）</td></tr>
-        <tr><td>中电科思仪科技</td><td>中国电科系</td><td>频谱仪/信号分析仪器谱系完整，监测接收机为延伸</td></tr>
-        <tr><td>创远信科</td><td>北交所上市</td><td>无线通信测试仪器，非政府监测网主业</td></tr>
-        <tr><td>坤恒顺维</td><td>科创板上市</td><td>无线信道仿真/测试，定位与监测网不同</td></tr>
-        <tr><td>成都中亚通茂</td><td>成都本地</td><td>监测/测向细分参与者，公开信息有限</td></tr>
-        <tr><td>电科系院所（54 所等）</td><td>军工院所</td><td>军政频谱管理与电子对抗强，民用监管参与度低</td></tr>
+        <tr><td data-label="企业"><strong>成都华日通讯</strong></td><td data-label="背景">民企，1993 前身，专精特新</td><td data-label="能力画像（公开口径）">全体系监测测向+平台软件+AI；公司口径市占率逾四成；HRS71 接收机 20MHz-26.5GHz、80MHz 实时带宽（宣称超一类站指标）</td></tr>
+        <tr><td data-label="企业">中电科思仪科技</td><td data-label="背景">中国电科系</td><td data-label="能力画像（公开口径）">频谱仪/信号分析仪器谱系完整，监测接收机为延伸</td></tr>
+        <tr><td data-label="企业">创远信科</td><td data-label="背景">北交所上市</td><td data-label="能力画像（公开口径）">无线通信测试仪器，非政府监测网主业</td></tr>
+        <tr><td data-label="企业">坤恒顺维</td><td data-label="背景">科创板上市</td><td data-label="能力画像（公开口径）">无线信道仿真/测试，定位与监测网不同</td></tr>
+        <tr><td data-label="企业">成都中亚通茂</td><td data-label="背景">成都本地</td><td data-label="能力画像（公开口径）">监测/测向细分参与者，公开信息有限</td></tr>
+        <tr><td data-label="企业">电科系院所（54 所等）</td><td data-label="背景">军工院所</td><td data-label="能力画像（公开口径）">军政频谱管理与电子对抗强，民用监管参与度低</td></tr>
       </tbody>
     </table>
   </div>
@@ -650,11 +667,11 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>来源分层</caption>
       <thead><tr><th>层级</th><th>内容</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag fact">官方一手</span></td><td>工信厅联通信〔2026〕4号；工信部《吴启晖：构建频谱安全体系 保障低空经济发展》；千帆组网新闻（2026-07）；证监会 eid 辅导公示与第 21 期辅导报告</td></tr>
-        <tr><td><span class="tag">券商/第三方</span></td><td>中航证券《反无人机系统》（2024-10）；QYResearch 无线电监测设备市场（2025-04）；智研咨询（2026-05，与券商冲突，谨慎）</td></tr>
-        <tr><td><span class="tag">公司一手</span></td><td>华日官网 cdhuari.com（产品参数/案例/新闻）；新华网四川（2025-09 发布会）；公司官方知乎号（AI 应用形态）</td></tr>
-        <tr><td><span class="tag claim">媒体转述口径</span></td><td>封面新闻（市占率/领军企业）；红星新闻（超 10 亿订单）；九鼎投资官网 2013 注资新闻；百度百科词条</td></tr>
-        <tr><td><span class="tag unv">不采用</span></td><td>博研咨询等模板化内容工厂的"频谱 XX 市场报告"（同一模板套用无意义词条）</td></tr>
+        <tr><td data-label="层级"><span class="tag fact">官方一手</span></td><td data-label="内容">工信厅联通信〔2026〕4号；工信部《吴启晖：构建频谱安全体系 保障低空经济发展》；千帆组网新闻（2026-07）；证监会 eid 辅导公示与第 21 期辅导报告</td></tr>
+        <tr><td data-label="层级"><span class="tag">券商/第三方</span></td><td data-label="内容">中航证券《反无人机系统》（2024-10）；QYResearch 无线电监测设备市场（2025-04）；智研咨询（2026-05，与券商冲突，谨慎）</td></tr>
+        <tr><td data-label="层级"><span class="tag">公司一手</span></td><td data-label="内容">华日官网 cdhuari.com（产品参数/案例/新闻）；新华网四川（2025-09 发布会）；公司官方知乎号（AI 应用形态）</td></tr>
+        <tr><td data-label="层级"><span class="tag claim">媒体转述口径</span></td><td data-label="内容">封面新闻（市占率/领军企业）；红星新闻（超 10 亿订单）；九鼎投资官网 2013 注资新闻；百度百科词条</td></tr>
+        <tr><td data-label="层级"><span class="tag unv">不采用</span></td><td data-label="内容">博研咨询等模板化内容工厂的"频谱 XX 市场报告"（同一模板套用无意义词条）</td></tr>
       </tbody>
     </table>
   </div>

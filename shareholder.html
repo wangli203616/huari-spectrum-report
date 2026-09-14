@@ -231,6 +231,23 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
+<style>
+/* ===== 手机端表格适配（2026-09-14） ===== */
+html{overflow-x:hidden}
+body{overflow-x:hidden;max-width:100%}
+.tbl{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:auto}
+@media (max-width:760px){
+  .tbl{overflow:visible;border:none;border-radius:0;background:transparent}
+  .tbl table{min-width:0!important;width:100%!important;font-size:13px;border-collapse:separate;border-spacing:0}
+  .tbl thead{display:none}
+  .tbl tbody tr{display:block;background:var(--surface,#fff);border:1px solid var(--border,#e5e0d6);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+  .tbl tbody tr:nth-child(even) td{background:transparent}
+  .tbl tbody td{display:block;width:auto!important;border:none!important;padding:5px 0;background:transparent!important;font-size:13px;line-height:1.66;white-space:normal!important;word-break:break-word;overflow-wrap:anywhere}
+  .tbl tbody td+td{border-top:1px dashed rgba(0,0,0,.07)!important;padding-top:7px;margin-top:2px}
+  .tbl tbody td::before{content:attr(data-label);display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--dim,#85919b);margin-bottom:2px}
+  .tbl tbody td[data-label=""]::before,.tbl tbody td:not([data-label])::before{display:none}
+}
+</style>
 </head>
 <body><style>.hrtabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#102a43;border-radius:14px;padding:8px;margin:10px 0 14px;scrollbar-width:none}.hrtabs::-webkit-scrollbar{display:none}.hrtabs a{flex:none;font-size:12.5px;color:#cfe0ee;text-decoration:none;padding:7px 12px;border-radius:9px;white-space:nowrap;line-height:1.4}.hrtabs a.active{background:#e8c98b;color:#3d2e0a;font-weight:700}.hrtabs a:hover{background:rgba(255,255,255,.12)}</style><nav class="hrtabs"><a href="https://wangli203616.github.io/huari-nuclear-report/">中核核工业研报</a><a href="https://wangli203616.github.io/huari-spectrum-report/shareholder.html" class="active">股东背景可视化</a><a href="https://wangli203616.github.io/huari-spectrum-report/">电磁频谱产业研报</a><a href="https://wangli203616.github.io/huari-nuclear-report/pengzhou-renshou.html">彭州仁寿基地核查</a><a href="https://wangli203616.github.io/huari-nuclear-report/procurement.html">采购中标明细</a><a href="https://wangli203616.github.io/huari-nuclear-report/solution.html">整体解决方案</a></nav>
 <a class="skip" href="#main">跳到正文</a>
@@ -339,11 +356,11 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>关键主体信息</caption>
       <thead><tr><th>主体</th><th>成立</th><th>注册资本（实缴）</th><th>法代/GP</th><th>关键股东</th><th>备注</th></tr></thead>
       <tbody>
-        <tr><td>成都华日通讯技术股份</td><td>2003-03-26（前身 1993）</td><td>5,100 万（全部实缴）</td><td>莫舸舸</td><td>7 名法人/合伙股东</td><td>参保 487+32 人；频谱监测主业</td></tr>
-        <tr><td>成都华日新达投资</td><td>2013-10-16</td><td>1,000 万（实缴 1,000 万）</td><td>莫舸舸（执行董事）</td><td>莫舸舸 90% / 莫景猷 10%</td><td>持股壳+物业平台（经营范围含房屋租赁）</td></tr>
-        <tr><td>华讯创享（员工平台）</td><td>2019-10-18</td><td>2,934.78 万（实缴未披露）</td><td>莫舸舸（GP）</td><td>42 名自然人</td><td>对华日出资 408 万（=8%）——口径差见风险 6</td></tr>
-        <tr><td>成都上裕投资</td><td>2013-12-09</td><td>1,000 万（实缴 1,000 万）</td><td>杨庆云</td><td>杨庆云 60% / 侯秋珍 40%</td><td>参保 0；背景近乎空白</td></tr>
-        <tr><td>九鼎系 4 基金</td><td>最早 2013-07-17</td><td>认缴 586.5 万等</td><td>九鼎系管理人</td><td>LP 结构未公开</td><td>合计持股 23%；基金期限与备案待核</td></tr>
+        <tr><td data-label="主体">成都华日通讯技术股份</td><td data-label="成立">2003-03-26（前身 1993）</td><td data-label="注册资本（实缴）">5,100 万（全部实缴）</td><td data-label="法代/GP">莫舸舸</td><td data-label="关键股东">7 名法人/合伙股东</td><td data-label="备注">参保 487+32 人；频谱监测主业</td></tr>
+        <tr><td data-label="主体">成都华日新达投资</td><td data-label="成立">2013-10-16</td><td data-label="注册资本（实缴）">1,000 万（实缴 1,000 万）</td><td data-label="法代/GP">莫舸舸（执行董事）</td><td data-label="关键股东">莫舸舸 90% / 莫景猷 10%</td><td data-label="备注">持股壳+物业平台（经营范围含房屋租赁）</td></tr>
+        <tr><td data-label="主体">华讯创享（员工平台）</td><td data-label="成立">2019-10-18</td><td data-label="注册资本（实缴）">2,934.78 万（实缴未披露）</td><td data-label="法代/GP">莫舸舸（GP）</td><td data-label="关键股东">42 名自然人</td><td data-label="备注">对华日出资 408 万（=8%）——口径差见风险 6</td></tr>
+        <tr><td data-label="主体">成都上裕投资</td><td data-label="成立">2013-12-09</td><td data-label="注册资本（实缴）">1,000 万（实缴 1,000 万）</td><td data-label="法代/GP">杨庆云</td><td data-label="关键股东">杨庆云 60% / 侯秋珍 40%</td><td data-label="备注">参保 0；背景近乎空白</td></tr>
+        <tr><td data-label="主体">九鼎系 4 基金</td><td data-label="成立">最早 2013-07-17</td><td data-label="注册资本（实缴）">认缴 586.5 万等</td><td data-label="法代/GP">九鼎系管理人</td><td data-label="关键股东">LP 结构未公开</td><td data-label="备注">合计持股 23%；基金期限与备案待核</td></tr>
       </tbody>
     </table>
   </div>
@@ -359,13 +376,13 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
     <table>
       <thead><tr><th>时间</th><th>事件</th><th>性质</th></tr></thead>
       <tbody>
-        <tr><td>1993 / 2003-03</td><td>前身创办；成都华日通讯技术有限公司设立</td><td>企业自述 / 工商证实</td></tr>
-        <tr><td>2013-10</td><td>九鼎投资完成注资（官网新闻）；华日新达、上裕投资同年成立</td><td>已证实（一手新闻+工商）</td></tr>
-        <tr><td>2015-10</td><td>华日新达股东认缴出资日（莫舸舸 90%/莫景猷 10%）</td><td>已证实（工商）</td></tr>
-        <tr><td>2019-10</td><td>员工平台华讯创享成立（42 人）；7 名直接股东认缴出资日口径</td><td>已证实（工商）</td></tr>
-        <tr><td>2020-03 / 2020-12</td><td>股份制改制（百科口径）；中信建投辅导备案（四川证监局）</td><td>媒体口径 / 官方公示</td></tr>
-        <tr><td>2026-04-30</td><td>*ST九鼎（600053.SH）实施退市风险警示</td><td>已证实（交易所公告）</td></tr>
-        <tr><td>2026-07-10</td><td>第 21 期辅导报告：仍"辅导备案"；拟对股权结构进行部分调整；业绩波动较大</td><td>已证实（证监会官方 PDF）</td></tr>
+        <tr><td data-label="时间">1993 / 2003-03</td><td data-label="事件">前身创办；成都华日通讯技术有限公司设立</td><td data-label="性质">企业自述 / 工商证实</td></tr>
+        <tr><td data-label="时间">2013-10</td><td data-label="事件">九鼎投资完成注资（官网新闻）；华日新达、上裕投资同年成立</td><td data-label="性质">已证实（一手新闻+工商）</td></tr>
+        <tr><td data-label="时间">2015-10</td><td data-label="事件">华日新达股东认缴出资日（莫舸舸 90%/莫景猷 10%）</td><td data-label="性质">已证实（工商）</td></tr>
+        <tr><td data-label="时间">2019-10</td><td data-label="事件">员工平台华讯创享成立（42 人）；7 名直接股东认缴出资日口径</td><td data-label="性质">已证实（工商）</td></tr>
+        <tr><td data-label="时间">2020-03 / 2020-12</td><td data-label="事件">股份制改制（百科口径）；中信建投辅导备案（四川证监局）</td><td data-label="性质">媒体口径 / 官方公示</td></tr>
+        <tr><td data-label="时间">2026-04-30</td><td data-label="事件">*ST九鼎（600053.SH）实施退市风险警示</td><td data-label="性质">已证实（交易所公告）</td></tr>
+        <tr><td data-label="时间">2026-07-10</td><td data-label="事件">第 21 期辅导报告：仍"辅导备案"；拟对股权结构进行部分调整；业绩波动较大</td><td data-label="性质">已证实（证监会官方 PDF）</td></tr>
       </tbody>
     </table>
   </div>
@@ -399,10 +416,10 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>九鼎系 4 只基金持股明细（工商口径）</caption>
       <thead><tr><th>基金</th><th>持股</th><th>认缴出资</th><th>备注</th></tr></thead>
       <tbody>
-        <tr><td>嘉兴九鼎策略一期（有限合伙）</td><td><span class="num">11.5%</span></td><td>586.5 万</td><td>2013-07-17 成立，与九鼎注资时点吻合</td></tr>
-        <tr><td>苏州荣丰九鼎创投中心</td><td><span class="num">5.75%</span></td><td>293.25 万</td><td>成立时间待核</td></tr>
-        <tr><td>嘉兴昭宣元安九鼎创投中心</td><td><span class="num">3.8334%</span></td><td>195.50 万</td><td>成立时间待核</td></tr>
-        <tr><td>苏州祥盛九鼎创投中心</td><td><span class="num">1.9166%</span></td><td>97.75 万</td><td>成立时间待核</td></tr>
+        <tr><td data-label="基金">嘉兴九鼎策略一期（有限合伙）</td><td data-label="持股"><span class="num">11.5%</span></td><td data-label="认缴出资">586.5 万</td><td data-label="备注">2013-07-17 成立，与九鼎注资时点吻合</td></tr>
+        <tr><td data-label="基金">苏州荣丰九鼎创投中心</td><td data-label="持股"><span class="num">5.75%</span></td><td data-label="认缴出资">293.25 万</td><td data-label="备注">成立时间待核</td></tr>
+        <tr><td data-label="基金">嘉兴昭宣元安九鼎创投中心</td><td data-label="持股"><span class="num">3.8334%</span></td><td data-label="认缴出资">195.50 万</td><td data-label="备注">成立时间待核</td></tr>
+        <tr><td data-label="基金">苏州祥盛九鼎创投中心</td><td data-label="持股"><span class="num">1.9166%</span></td><td data-label="认缴出资">97.75 万</td><td data-label="备注">成立时间待核</td></tr>
       </tbody>
     </table>
   </div>
@@ -411,13 +428,13 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
       <caption>员工平台（华讯创享）前十大合伙人 · 对华日间接持股</caption>
       <thead><tr><th>合伙人</th><th>职务</th><th>平台内份额</th><th>间接持股</th></tr></thead>
       <tbody>
-        <tr><td>李红宙</td><td>董事、常务副总经理</td><td>11.93%</td><td>≈0.95%</td></tr>
-        <tr><td>莫舸舸</td><td>实控人/董事长兼总经理</td><td>10.56%</td><td>≈0.84%</td></tr>
-        <tr><td>漆骐</td><td>董事、技术副总经理</td><td>10.22%</td><td>≈0.82%</td></tr>
-        <tr><td>张翼</td><td>频谱产品线总裁</td><td>6.81%</td><td>≈0.55%</td></tr>
-        <tr><td>郭轶</td><td>生产副总经理</td><td>6.81%</td><td>≈0.55%</td></tr>
-        <tr><td>郭际</td><td>监事会主席</td><td>5.45%</td><td>≈0.44%</td></tr>
-        <tr><td>张笑语 / 刘胜 / 毛明亮 / 彭海</td><td>经营/技术骨干</td><td>4.77% / 4.09% / 4.09% / 3.75%</td><td>≈0.38% / 0.33% / 0.33% / 0.30%</td></tr>
+        <tr><td data-label="合伙人">李红宙</td><td data-label="职务">董事、常务副总经理</td><td data-label="平台内份额">11.93%</td><td data-label="间接持股">≈0.95%</td></tr>
+        <tr><td data-label="合伙人">莫舸舸</td><td data-label="职务">实控人/董事长兼总经理</td><td data-label="平台内份额">10.56%</td><td data-label="间接持股">≈0.84%</td></tr>
+        <tr><td data-label="合伙人">漆骐</td><td data-label="职务">董事、技术副总经理</td><td data-label="平台内份额">10.22%</td><td data-label="间接持股">≈0.82%</td></tr>
+        <tr><td data-label="合伙人">张翼</td><td data-label="职务">频谱产品线总裁</td><td data-label="平台内份额">6.81%</td><td data-label="间接持股">≈0.55%</td></tr>
+        <tr><td data-label="合伙人">郭轶</td><td data-label="职务">生产副总经理</td><td data-label="平台内份额">6.81%</td><td data-label="间接持股">≈0.55%</td></tr>
+        <tr><td data-label="合伙人">郭际</td><td data-label="职务">监事会主席</td><td data-label="平台内份额">5.45%</td><td data-label="间接持股">≈0.44%</td></tr>
+        <tr><td data-label="合伙人">张笑语 / 刘胜 / 毛明亮 / 彭海</td><td data-label="职务">经营/技术骨干</td><td data-label="平台内份额">4.77% / 4.09% / 4.09% / 3.75%</td><td data-label="间接持股">≈0.38% / 0.33% / 0.33% / 0.30%</td></tr>
       </tbody>
     </table>
     <p class="tbl-note">数据来源：爱企查/企查查工商页（已证实，2026-09-02 访问）；份额为工商登记口径，3.8334% 等小数系基金原登记比例。数据异常提示：平台注册资本 2,934.78 万元 vs 对华日出资仅 408 万元——按 2,934.78 万对应 8% 反推，2019 年前后隐含公司整体估值约 3.7 亿元（纯推算，须以转让协议验证）。</p>
@@ -504,18 +521,18 @@ footer { border-top: 2px solid var(--ink); max-width: 1120px; margin: 0 auto; pa
     <table>
       <thead><tr><th>#</th><th>风险项</th><th>性质</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td><span class="num">1</span></td><td><strong>股权结构调整在途</strong></td><td><span class="tag fact">事实</span></td><td>方案、定价、对象未披露，直接影响上市时间表与控制权</td></tr>
-        <tr><td><span class="num">2</span></td><td><strong>PE 股东体系恶化</strong></td><td><span class="tag fact">事实</span>+推测</td><td>*ST九鼎 2026-04 退市风险警示；九鼎系基金 23% 持有 13 年</td></tr>
-        <tr><td><span class="num">3</span></td><td><strong>历史 PE 特殊权利</strong></td><td><span class="tag guess">潜在</span></td><td>对赌/回购/优先清算/随售/反稀释未公开，需确认申报前清理情况</td></tr>
-        <tr><td><span class="num">4</span></td><td><strong>实控人权力集中</strong></td><td><span class="tag fact">事实</span></td><td>一人身兼四职，家族可支配约 68%</td></tr>
-        <tr><td><span class="num">5</span></td><td><strong>家族传承与出资来源</strong></td><td><span class="tag unv">待核实</span></td><td>莫景猷→莫舸舸交接无公开关系证明；出资来源未披露</td></tr>
-        <tr><td><span class="num">6</span></td><td><strong>员工平台合规</strong></td><td><span class="tag fact">事实</span>+待核实</td><td>42 人名单不全；2,934.78 万 vs 408 万口径差；代持/股份支付待核</td></tr>
-        <tr><td><span class="num">7</span></td><td><strong>上裕/外部董事背景不明</strong></td><td><span class="tag unv">待核实</span></td><td>杨庆云/侯秋珍/外部董事公开背景近乎为零</td></tr>
-        <tr><td><span class="num">8</span></td><td><strong>关联物业/园区交易</strong></td><td><span class="tag guess">潜在</span></td><td>华日新达含房屋租赁物业经营；与发行人物业往来需专项审计</td></tr>
-        <tr><td><span class="num">9</span></td><td><strong>军品/涉密股东适格性</strong></td><td><span class="tag guess">潜在</span></td><td>九鼎基金 LP 若含外资/敏感出资需穿透核查</td></tr>
-        <tr><td><span class="num">10</span></td><td><strong>业绩波动与上市门槛</strong></td><td><span class="tag fact">事实</span></td><td>辅导报告承认业绩波动较大；财务数据未公开</td></tr>
-        <tr><td><span class="num">11</span></td><td><strong>司法与行政风险</strong></td><td><span class="tag fact">部分证实</span></td><td>平台显示自身风险 15 条/司法案件 16 条（含机动车事故类），未见失信公开报道</td></tr>
-        <tr><td><span class="num">12</span></td><td><strong>信息披露豁免</strong></td><td><span class="tag guess">潜在</span></td><td>涉军业务可能豁免披露，降低投资人尽调可得性</td></tr>
+        <tr><td data-label="#"><span class="num">1</span></td><td data-label="风险项"><strong>股权结构调整在途</strong></td><td data-label="性质"><span class="tag fact">事实</span></td><td data-label="说明">方案、定价、对象未披露，直接影响上市时间表与控制权</td></tr>
+        <tr><td data-label="#"><span class="num">2</span></td><td data-label="风险项"><strong>PE 股东体系恶化</strong></td><td data-label="性质"><span class="tag fact">事实</span>+推测</td><td data-label="说明">*ST九鼎 2026-04 退市风险警示；九鼎系基金 23% 持有 13 年</td></tr>
+        <tr><td data-label="#"><span class="num">3</span></td><td data-label="风险项"><strong>历史 PE 特殊权利</strong></td><td data-label="性质"><span class="tag guess">潜在</span></td><td data-label="说明">对赌/回购/优先清算/随售/反稀释未公开，需确认申报前清理情况</td></tr>
+        <tr><td data-label="#"><span class="num">4</span></td><td data-label="风险项"><strong>实控人权力集中</strong></td><td data-label="性质"><span class="tag fact">事实</span></td><td data-label="说明">一人身兼四职，家族可支配约 68%</td></tr>
+        <tr><td data-label="#"><span class="num">5</span></td><td data-label="风险项"><strong>家族传承与出资来源</strong></td><td data-label="性质"><span class="tag unv">待核实</span></td><td data-label="说明">莫景猷→莫舸舸交接无公开关系证明；出资来源未披露</td></tr>
+        <tr><td data-label="#"><span class="num">6</span></td><td data-label="风险项"><strong>员工平台合规</strong></td><td data-label="性质"><span class="tag fact">事实</span>+待核实</td><td data-label="说明">42 人名单不全；2,934.78 万 vs 408 万口径差；代持/股份支付待核</td></tr>
+        <tr><td data-label="#"><span class="num">7</span></td><td data-label="风险项"><strong>上裕/外部董事背景不明</strong></td><td data-label="性质"><span class="tag unv">待核实</span></td><td data-label="说明">杨庆云/侯秋珍/外部董事公开背景近乎为零</td></tr>
+        <tr><td data-label="#"><span class="num">8</span></td><td data-label="风险项"><strong>关联物业/园区交易</strong></td><td data-label="性质"><span class="tag guess">潜在</span></td><td data-label="说明">华日新达含房屋租赁物业经营；与发行人物业往来需专项审计</td></tr>
+        <tr><td data-label="#"><span class="num">9</span></td><td data-label="风险项"><strong>军品/涉密股东适格性</strong></td><td data-label="性质"><span class="tag guess">潜在</span></td><td data-label="说明">九鼎基金 LP 若含外资/敏感出资需穿透核查</td></tr>
+        <tr><td data-label="#"><span class="num">10</span></td><td data-label="风险项"><strong>业绩波动与上市门槛</strong></td><td data-label="性质"><span class="tag fact">事实</span></td><td data-label="说明">辅导报告承认业绩波动较大；财务数据未公开</td></tr>
+        <tr><td data-label="#"><span class="num">11</span></td><td data-label="风险项"><strong>司法与行政风险</strong></td><td data-label="性质"><span class="tag fact">部分证实</span></td><td data-label="说明">平台显示自身风险 15 条/司法案件 16 条（含机动车事故类），未见失信公开报道</td></tr>
+        <tr><td data-label="#"><span class="num">12</span></td><td data-label="风险项"><strong>信息披露豁免</strong></td><td data-label="性质"><span class="tag guess">潜在</span></td><td data-label="说明">涉军业务可能豁免披露，降低投资人尽调可得性</td></tr>
       </tbody>
     </table>
   </div>
